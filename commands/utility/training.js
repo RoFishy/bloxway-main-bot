@@ -23,14 +23,14 @@ module.exports = {
             ephemeral: true
         })
 
-        const trainingChannel = interaction.guild.channels.cache.get("1076683229001682954")
+        const trainingChannel = interaction.guild.channels.cache.get("1222210740513931275")
 
         const cohost = interaction.options.getUser("co-host") || "N/A"
         const trainingEmbed = new EmbedBuilder()
         .setTitle("Bloxway Training")
-        .setDescription(`A training will be commencing soon, head on down to the training centre for a chance to rank up! \n \n Host: ${interaction.member} \n Co-host: ${cohost} \n \n **Game Link:** https://www.roblox.com/games/14555601476/NEW-Training-Center`)
+        .setDescription(`A training will be commencing soon, head on down to the training centre for a chance to rank up! \n \n Host: ${interaction.member} \n Co-host: ${cohost} \n \n **Game Link:** https://www.roblox.com/games/9865430232/TRAIN-Training-Center`)
         .setColor("LuminousVividPink")
-        .setImage("https://tr.rbxcdn.com/d2ff2dcfdfd43e6e2670c5dda9a7d353/768/432/Image/Png")
+        .setImage("https://images-ext-1.discordapp.net/external/DmkRlkzzRWlRSnMnKyFTaVdIxlq0HZdvmf9u7X1NdsY/https/cdn.discordapp.com/icons/1221931396755623947/23e11763294ff1cb8daef507dc906a2a.webp?format=webp&width=140&height=140")
         .setFooter({text: "We hope to see you there!"})
 
         trainingChannel.send("<@&1089490250524536922>")
