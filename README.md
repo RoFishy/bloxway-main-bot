@@ -1,4 +1,4 @@
-# Krestia: A Discord to Roblox ranking Bot
+# Bloxway: A Discord to Roblox ranking Bot
 
 This bot is designed to help manage your Roblox group through Discord. It provides basic moderation commands, group ranking, activity tracking for staff members, as well as some fun commands.
 
