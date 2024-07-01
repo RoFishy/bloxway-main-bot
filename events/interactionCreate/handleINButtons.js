@@ -19,40 +19,45 @@ module.exports = async (client, interaction) => {
         const [endDay, endMonth, endYear] = endDate.split("/");
         const formattedEndDate = `${endMonth}/${endDay}/${endYear}`;
 
-        const currentDate = new Date();
-        const startOfWeek = currentDate.getDate() - currentDate.getDay();
-        const startOfInactivity = new Date(formattedStartDate);
-
-        let isOnInactivity;
-        const startOfWeekDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), startOfWeek);
-
-        if (startOfInactivity >= startOfWeekDate && startOfInactivity < new Date(startOfWeekDate.getTime() + 7 * 24 * 60 * 60 * 1000)) {
-            isOnInactivity = true;
-            const inRole = interaction.guild.roles.cache.get("1246163950345650337");
-            const member = await interaction.guild.members.fetch(userId);
-            await member.roles.add(inRole);
-
-        } else {
-            isOnInactivity = false;
-        }
-
-        await staffSchema.findOneAndUpdate({ userid: userId }, {
-            'inactivity.isOnInactivity': isOnInactivity,
-            'inactivity.startDate': new Date(formattedStartDate),
-            'inactivity.endDate': new Date(formattedEndDate),
-        });
-
-        await interaction.reply({ content: "Inactivity request accepted!", ephemeral: true });
-        reviewEmbed.fields[5].value = "✅ Accepted";
-        reviewEmbed.data.color = 0x00FF00;
-        reviewEmbed.fields[6] = { name: "Accepted by", value: `${interaction.user}` }
-        await interaction.message.edit({ embeds: [reviewEmbed], components: [] });
-        const user = await client.users.fetch(userId);
         try {
-            await user.send(`Your inactivity request has been accepted! You will be on inactivity from ${startDate} to ${endDate}.`);
-        } catch (error) {
-            return;
+            const currentDate = new Date();
+            const startOfWeek = currentDate.getDate() - currentDate.getDay();
+            const startOfInactivity = new Date(formattedStartDate);
+
+            let isOnInactivity;
+            const startOfWeekDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), startOfWeek);
+
+            if (startOfInactivity >= startOfWeekDate && startOfInactivity < new Date(startOfWeekDate.getTime() + 7 * 24 * 60 * 60 * 1000)) {
+                isOnInactivity = true;
+                const inRole = interaction.guild.roles.cache.get("1246163950345650337");
+                const member = await interaction.guild.members.fetch(userId);
+                await member.roles.add(inRole);
+
+            } else {
+                isOnInactivity = false;
+            }
+
+            await staffSchema.findOneAndUpdate({ userid: userId }, {
+                'inactivity.isOnInactivity': isOnInactivity,
+                'inactivity.startDate': new Date(formattedStartDate),
+                'inactivity.endDate': new Date(formattedEndDate),
+            });
+
+            await interaction.reply({ content: "Inactivity request accepted!", ephemeral: true });
+            reviewEmbed.fields[5].value = "✅ Accepted";
+            reviewEmbed.data.color = 0x00FF00;
+            reviewEmbed.fields[6] = { name: "Accepted by", value: `${interaction.user}` }
+            await interaction.message.edit({ embeds: [reviewEmbed], components: [] });
+            const user = await client.users.fetch(userId);
+            try {
+                await user.send(`Your inactivity request has been accepted! You will be on inactivity from ${startDate} to ${endDate}.`);
+            } catch (error) {
+                return;
+            }
+        }  catch(error) {
+            await interaction.reply({ content: "Unable to accept request. User may have used wrong format.", ephemeral: true });
         }
+        
     } else if (interaction.customId.startsWith("deny_")) {
         const userId = interaction.customId.split("_")[1];
         const denyModal = new ModalBuilder()

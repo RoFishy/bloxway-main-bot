@@ -20,7 +20,7 @@ module.exports = {
         .setTitle("🏓 | Pong!")
         .setDescription(`**Websocket:** \`${wsPing}ms\`\n**API:** \`${apiPing}ms\`\n**Uptime:** \`${days}d ${hours}h ${minutes}m ${seconds}s\``)
         .setColor("Blurple")
-        .setFooter({text: "Krestia Support", iconURL: client.user.displayAvatarURL()})
+        .setFooter({text: "Bloxway Automation", iconURL: client.user.displayAvatarURL()})
         await interaction.editReply({ content: "", embeds: [pingEmbed]})
     }
 }
