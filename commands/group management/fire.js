@@ -34,7 +34,7 @@ module.exports = {
         const runnerid = interaction.member.id
         const username = interaction.options.getString("username")
         
-                    const runnerUser = await getRobloxUser(runnerid)
+        const runnerUser = await getRobloxUser(runnerid)
 
 
         const userId = await noblox.getIdFromUsername(username)
@@ -42,16 +42,12 @@ module.exports = {
             return interaction.editReply("The specified username does not exist")
         }
         let currentRank = await noblox.getRankNameInGroup(group, userId)
-        if(currentRank == "Customer") return interaction.editReply("That user is a customer, they cannot be fired.")
-            
+        if(currentRank == "Hungry Customer") return interaction.editReply("That user is a customer, they cannot be fired.")
+
+        const runnerID = await noblox.getIdFromUsername(runnerUser)
 
 
-            
-
-            const runnerID = await noblox.getIdFromUsername(runnerUser)
-
-
-            const isMember = await noblox.getRankInGroup(group, userId)
+        const isMember = await noblox.getRankInGroup(group, userId)
         
 
             if(isMember == 0) {
@@ -68,7 +64,7 @@ module.exports = {
              if((currentRank == "🥪Development Team") || (currentRank == "Developer") || (currentRank == "🥪Ownership Team") || (currentRank == "Chairwoman") || (currentRank == "Chairman")) return interaction.editReply("Their rank is the same as or above mine, I can't do that")
 
          try {
-            await noblox.setRank(group, userId, "Customer")
+            await noblox.setRank(group, userId, "Hungry Customer")
          interaction.editReply(`Succesfully fired ${username}!`)
 
 
