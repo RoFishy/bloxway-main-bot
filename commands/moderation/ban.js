@@ -40,7 +40,7 @@ module.exports = {
         if (targetId) {
             try {
                 await interaction.guild.bans.create(targetId, { reason: reason });
-
+                /*
                 sendLog(
                     client,
                     "User banned",
@@ -53,7 +53,7 @@ module.exports = {
                     "Red",
                     target.user.displayAvatarURL()
                 )
-
+                */
                 return interaction.editReply(`Successfully banned user with ID ${targetId}`);
             } catch (error) {
                 console.log(error)
